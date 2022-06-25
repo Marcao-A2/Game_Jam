@@ -16,10 +16,12 @@ public class SimonSays : MonoBehaviour
     bool passed = false;
     bool won = false;
     Color32 red = new Color32(255, 39, 0, 255);
-    Color32 blue = new Color32(23, 0, 255, 255);
-    Color32 invisible = new Color32(4, 204, 0, 0);
+    Color32 blue = new Color32(25, 195, 21, 255);
+    Color32 invisible = new Color32(74, 82, 74, 255);
     Color32 white = new Color32(255, 255, 255, 255);
     public float lightSpeed;
+    public GameObject button;
+    public GameObject lights;
 
     private void OnEnable()
     {
@@ -118,6 +120,8 @@ public class SimonSays : MonoBehaviour
         if (won)
         {
             gameObject.SetActive(false);
+            button.SetActive(false);
+            lights.SetActive(false);
         }
         else
         {
