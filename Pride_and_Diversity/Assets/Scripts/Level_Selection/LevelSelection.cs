@@ -18,7 +18,7 @@ public class LevelSelection : MonoBehaviour
     private void UpdateLevelStatus()
     {
         int previousLevelNum = int.Parse(gameObject.name) - 1;
-        if (PlayerPrefs.GetInt("Lv" + previousLevelNum.ToString()) > 0)//If the firts level star is bigger than 0, second level can play
+        if (PlayerPrefs.GetInt("Lv" + previousLevelNum.ToString()) > 0)
         {
             unlocked = true;
         }
@@ -26,11 +26,11 @@ public class LevelSelection : MonoBehaviour
 
     private void UpdateLevelImage()
     {
-        if (!unlocked)//MARKER if unclock is false means This level is clocked!
+        if (!unlocked)
         {
             unlockImage.gameObject.SetActive(true);
         }
-        else//if unlock is true means This level can play !
+        else
         {
             unlockImage.gameObject.SetActive(false);
         }

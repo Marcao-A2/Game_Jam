@@ -22,9 +22,6 @@ public class SingleLevel : MonoBehaviour
             PlayerPrefs.SetInt("Lv" + levelIndex, _starsNum);
         }
 
-        //BackButton();
-        //MARKER Each level has saved their own stars number
-        //CORE PLayerPrefs.getInt("KEY", "VALUE"); We can use the KEY to find Our VALUE
         Debug.Log(PlayerPrefs.GetInt("Lv" + levelIndex, _starsNum));
 
         BackButton();

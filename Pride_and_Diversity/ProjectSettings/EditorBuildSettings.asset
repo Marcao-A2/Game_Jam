@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/LoadLevel.unity
+    guid: 5ae0db72590f2bd43a9919245e187873
   - enabled: 1
     path: Assets/Scenes/Puzzle.unity
     guid: c12cb330e6e26f34889fac24ff98af7d
+  - enabled: 1
+    path: Assets/Scenes/Memory.unity
+    guid: ca78d6b964b6935479ea28fa62f17379
+  - enabled: 1
+    path: Assets/Scenes/Simon.unity
+    guid: 7b10f4a477724ba4390bca7a443f9065
   m_configObjects: {}
