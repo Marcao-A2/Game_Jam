@@ -14,7 +14,7 @@ public class MemoryGame : MonoBehaviour
     {
         get { return _spriteId; }
     }
-    public void OnMouseDown()
+    public void Click()
     {
         if (imageUnknown.activeSelf && gameController.canOpen)
         {
