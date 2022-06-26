@@ -11,7 +11,7 @@ public class RobotMinigame : MonoBehaviour
     public bool isConnected;
 
     [Space(10)]
-    public RectTransform spawnPoint;
+    //public RectTransform spawnPoint;
     public RectTransform conector;
 
     [Range(0.1f, 10f)]
@@ -20,7 +20,7 @@ public class RobotMinigame : MonoBehaviour
     private void OnEnable()
     {
         isConnected = false;
-        transform.position = spawnPoint.position;
+        //transform.position = spawnPoint.position;
     }
 
     void Update()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class RobotGameController : MonoBehaviour
 {
     public RobotMinigame[] bodyParts;
+    public RobotGameController nextGame;
     int count;
     bool[] flags;
     bool itsOver;
@@ -13,7 +14,7 @@ public class RobotGameController : MonoBehaviour
     {
         count = 0;
         itsOver = false;
-        flags = new bool[5];
+        flags = new bool[9];
         for (int j = 0; j < flags.Length; j++)
         {
             flags[j] = false;
@@ -31,7 +32,7 @@ public class RobotGameController : MonoBehaviour
             }
         }
 
-        if (count == 5 && !itsOver)
+        if (count == 9 && !itsOver)
         {
             StartCoroutine(Delay());
             itsOver = true;
@@ -40,7 +41,8 @@ public class RobotGameController : MonoBehaviour
 
     IEnumerator Delay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
+        PuzzleController.ActivatePuzzle(nextGame);
         gameObject.SetActive(false);
     }
 }

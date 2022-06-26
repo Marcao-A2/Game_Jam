@@ -20,8 +20,9 @@ public class SimonSays : MonoBehaviour
     Color32 invisible = new Color32(74, 82, 74, 255);
     Color32 white = new Color32(255, 255, 255, 255);
     public float lightSpeed;
-    public GameObject button;
-    public GameObject lights;
+    [Range(5, 9)]
+    public int maxLevel;
+    public SimonSays nextGame;
 
     private void OnEnable()
     {
@@ -61,14 +62,14 @@ public class SimonSays : MonoBehaviour
             StartCoroutine(ColorBlink(red));
         }
 
-        if (buttonsclicked == level && passed && buttonsclicked != 5)
+        if (buttonsclicked == level && passed && buttonsclicked != maxLevel)
         {
             level++;
             passed = false;
             StartCoroutine(ColorOrder());
         }
 
-        if (buttonsclicked == level && passed && buttonsclicked == 5)
+        if (buttonsclicked == level && passed && buttonsclicked == maxLevel)
         {
             won = true;
             StartCoroutine(ColorBlink(blue));
@@ -119,9 +120,8 @@ public class SimonSays : MonoBehaviour
 
         if (won)
         {
+            SimonController.ActivateSimon(nextGame);
             gameObject.SetActive(false);
-            button.SetActive(false);
-            lights.SetActive(false);
         }
         else
         {
