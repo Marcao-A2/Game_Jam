@@ -32,6 +32,8 @@ public class GameControllerScript : MonoBehaviour
 
     private void Start()
     {
+        FindObjectOfType<AudioManager>().Play("Audience");
+
         int[] locations = { 0, 0, 1, 1, 2, 2, 3, 3 };
         locations = Randomiser(locations);
 

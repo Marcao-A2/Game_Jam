@@ -10,7 +10,7 @@ public class SingleLevel : MonoBehaviour
 
     public void BackButton()
     {
-        SceneManager.LoadScene("LevelSelection");
+        SceneManager.LoadScene("LoadLevel");
     }
 
     public void PressStarsButton(int _starsNum)

@@ -22,7 +22,9 @@ public class SimonSays : MonoBehaviour
     public float lightSpeed;
     [Range(5, 9)]
     public int maxLevel;
-    public SimonSays nextGame;
+    public GameObject nextGame;
+    public SimonController controller;
+    public int levelTag;
 
     private void OnEnable()
     {
@@ -42,10 +44,7 @@ public class SimonSays : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            gameObject.SetActive(false);
-        }
+
     }
 
     public void ButtonClickOrder(int button)
@@ -59,6 +58,7 @@ public class SimonSays : MonoBehaviour
         {
             won = false;
             passed = false;
+            controller.chances -= 1;
             StartCoroutine(ColorBlink(red));
         }
 
@@ -120,6 +120,7 @@ public class SimonSays : MonoBehaviour
 
         if (won)
         {
+            controller.levelTag = levelTag;
             SimonController.ActivateSimon(nextGame);
             gameObject.SetActive(false);
         }
@@ -127,6 +128,11 @@ public class SimonSays : MonoBehaviour
         {
             EnableInteractableButtons();
             OnEnable();
+        }
+
+        if (controller.chances == 0)
+        {
+            gameObject.SetActive(false);
         }
     }
 
