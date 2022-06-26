@@ -31,8 +31,8 @@ public class SimonController : MonoBehaviour
             lives.gameObject.SetActive(false);
             one.gameObject.SetActive(false);
         }
-
-        if (chances == 0)
+        Debug.Log(chances);
+        if (chances <= 0)
         {
             FindObjectOfType<AudioManager>().Stop("Audience");
             defeat.SetActive(true);

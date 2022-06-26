@@ -6,45 +6,47 @@ using UnityEngine.UI;
 
 public class GameControllerScript : MonoBehaviour
 {
-    public const int colunes = 4;
-    public const int rows = 2;
+    public int rows = 4;
+    int colunes;
 
     public const float xSpace = 4f;
     public const float ySpace = 5f;
-
+    public int ganha;
+    public int perde;
     public GameObject pasta;
+    public GameObject proximo;
+    public GameObject este;
+    public GameObject derrota;
 
     [SerializeField] private MemoryGame startObject;
     [SerializeField] private Sprite[] images;
 
-    private int[] Randomiser(int[] locations)
-    {
-        int[] array = locations.Clone() as int[];
-        for (int i = 0; i < array.Length; i++)
-        {
-            int newArray = array[i];
-            int j = Random.Range(i, array.Length);
-            array[i] = array[j];
-            array[j] = newArray;
-        }
-        return array;
-    }
+    [SerializeField] private SingleLevel nextLevel;
 
     private void Start()
     {
         FindObjectOfType<AudioManager>().Play("Audience");
+    }
 
-        int[] locations = { 0, 0, 1, 1, 2, 2, 3, 3 };
-        locations = Randomiser(locations);
+    private void OnEnable()
+    {
+        colunes = rows * 2;
+        List<int> locations = new List<int>();
+        for (int i = 0; i < colunes; i++)
+        {
+            locations.Add(i);
+            locations.Add(i);
+        }
+        //locations = Randomiser(locations);
 
         Vector3 startPosition = startObject.transform.position;
 
         for (int i = 0; i < colunes; i++)
         {
-            for (int j = 0; j < rows; j++)
+            for (int j = 0; j < 2; j++)
             {
                 MemoryGame gameImage;
-                if(i == 0 && j == 0)
+                if (i == 0 && j == 0)
                 {
                     gameImage = startObject;
                 }
@@ -55,9 +57,18 @@ public class GameControllerScript : MonoBehaviour
                     gameImage.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 }
 
-                int index = j * colunes + i;
+                int index = 0;
+                if (locations.Count >= 1)
+                {
+                    index = Random.Range(0, locations.Count);
+                }
+                else
+                {
+                    index = 0;
+                }
                 int id = locations[index];
                 gameImage.ChangeSprite(id, images[id]);
+                locations.Remove(locations[index]);
 
                 float positionX = (xSpace * i) + startPosition.x;
                 float positionY = (ySpace * j) + startPosition.y;
@@ -81,7 +92,7 @@ public class GameControllerScript : MonoBehaviour
         get { return lastOpen == null; }
     }
 
-   public void ImageOpened(MemoryGame startObject)
+    public void ImageOpened(MemoryGame startObject)
     {
         if (firstOpen == null)
         {
@@ -96,7 +107,7 @@ public class GameControllerScript : MonoBehaviour
 
     private IEnumerator CheckGuessed()
     {
-        if(firstOpen.spriteId == lastOpen.spriteId)
+        if (firstOpen.spriteId == lastOpen.spriteId)
         {
             score++;
             scoreText.text = "Score: " + score;
@@ -114,6 +125,37 @@ public class GameControllerScript : MonoBehaviour
 
         firstOpen = null;
         lastOpen = null;
+
+        if(score >= 8)
+        {
+            yield return new WaitForSeconds(1.5f);
+            nextLevel.PressStarsButton(2);
+            nextLevel.BackButton();
+            FindObjectOfType<AudioManager>().Stop("Audience");
+        }
+
+        if (score == ganha)
+        {
+            scoreText.text = "Success";
+            yield return new WaitForSeconds(1.5f);
+            proximo.SetActive(true);
+            este.SetActive(false);
+            
+        }
+        if(attempts == perde)
+        {
+            scoreText.text = "Fail";
+            yield return new WaitForSeconds(1.5f);
+            derrota.SetActive(true);
+        }
+        //else if (attempts > 8)
+        //{
+        //    scoreText.text = "Fail";
+        //    yield return new WaitForSeconds(1.5f);
+        //    PlayerPrefs.DeleteAll();
+        //    nextLevel.PressStarsButton(0);
+        //    nextLevel.BackButton();
+        //}
     }
 
     public void Restart()
